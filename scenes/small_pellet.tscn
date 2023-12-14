@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2wwjy2bm6uci"]
+
+[ext_resource type="PackedScene" uid="uid://b6incl2voodlw" path="res://scenes/pellet.tscn" id="1_pnnlt"]
+[ext_resource type="Texture2D" uid="uid://dtr5xriyhb6n1" path="res://graphics/pellet32.png" id="2_i6f7b"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sueq8"]
+radius = 6.0
+
+[node name="SmallPellet" instance=ExtResource("1_pnnlt")]
+score = 25
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_sueq8")
+
+[node name="Sprite2D" parent="." index="1"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_i6f7b")

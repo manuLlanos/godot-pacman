@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpj0mgad4bikv"]
+
+[ext_resource type="PackedScene" uid="uid://bdxcbe2m5its2" path="res://scenes/ghosts/ghost.tscn" id="1_m55mu"]
+[ext_resource type="Script" path="res://scenes/ghosts/blue_ghost.gd" id="2_5jccg"]
+[ext_resource type="Script" path="res://scenes/ghosts/BlueGhostChase.gd" id="3_uobtl"]
+
+[node name="BlueGhost" instance=ExtResource("1_m55mu")]
+script = ExtResource("2_5jccg")
+
+[node name="Body" parent="." index="1"]
+self_modulate = Color(0, 0.772549, 0.772549, 1)
+
+[node name="GhostChase" parent="StateMachine" index="1"]
+script = ExtResource("3_uobtl")

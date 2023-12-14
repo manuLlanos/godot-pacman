@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgnjhjx51v3cv"]
+
+[ext_resource type="PackedScene" uid="uid://bdxcbe2m5its2" path="res://scenes/ghosts/ghost.tscn" id="1_msbsn"]
+[ext_resource type="Script" path="res://scenes/ghosts/pink_ghost.gd" id="2_0p1ua"]
+[ext_resource type="Script" path="res://scenes/ghosts/PinkGhostChase.gd" id="3_udt0p"]
+
+[node name="PinkGhost" instance=ExtResource("1_msbsn")]
+script = ExtResource("2_0p1ua")
+
+[node name="Body" parent="." index="1"]
+self_modulate = Color(1, 0.392157, 0.796078, 1)
+
+[node name="GhostChase" parent="StateMachine" index="1"]
+script = ExtResource("3_udt0p")

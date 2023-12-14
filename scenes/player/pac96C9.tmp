@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://cj1uijv1rc6j8"]
+
+[ext_resource type="Texture2D" uid="uid://c2nogg4upo2ma" path="res://graphics/pacman-32.png" id="1_cekd6"]
+[ext_resource type="Script" path="res://scenes/player/pacman.gd" id="1_quigg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w5nx5"]
+radius = 15.0
+
+[sub_resource type="Animation" id="Animation_f4xpb"]
+resource_name = "moving"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wewqj"]
+_data = {
+"moving": SubResource("Animation_f4xpb")
+}
+
+[node name="Pacman" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_quigg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_w5nx5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("1_cekd6")
+hframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wewqj")
+}
+
+[node name="MoveTimer" type="Timer" parent="."]
+unique_name_in_owner = true

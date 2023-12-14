@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bceldx7j6wnih"]
+
+[ext_resource type="Script" path="res://scenes/pen_gate.gd" id="1_5qi7o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_21bmm"]
+size = Vector2(32, 8)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_3iexa"]
+
+[node name="PenGate" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_5qi7o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_21bmm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("CanvasTexture_3iexa")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 8)

@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://dh7v7ol4lepew"]
+
+[ext_resource type="PackedScene" uid="uid://b6incl2voodlw" path="res://scenes/pellet.tscn" id="1_2ogpx"]
+[ext_resource type="Texture2D" uid="uid://dtr5xriyhb6n1" path="res://graphics/pellet32.png" id="2_mk3yx"]
+[ext_resource type="Script" path="res://scenes/power_pellet.gd" id="2_ujgvf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rn4lb"]
+radius = 14.0
+
+[node name="PowerPellet" instance=ExtResource("1_2ogpx")]
+script = ExtResource("2_ujgvf")
+score = 10
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_rn4lb")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_mk3yx")

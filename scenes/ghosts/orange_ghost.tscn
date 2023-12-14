@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccljuee6tnqb6"]
+
+[ext_resource type="PackedScene" uid="uid://bdxcbe2m5its2" path="res://scenes/ghosts/ghost.tscn" id="1_duadg"]
+[ext_resource type="Script" path="res://scenes/ghosts/orange_ghost.gd" id="2_k8v4c"]
+[ext_resource type="Script" path="res://scenes/ghosts/OrangeGhostChase.gd" id="3_25dpc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0p0mh"]
+radius = 176.726
+
+[node name="OrangeGhost" instance=ExtResource("1_duadg")]
+script = ExtResource("2_k8v4c")
+
+[node name="Body" parent="." index="1"]
+self_modulate = Color(1, 0.376471, 0, 1)
+
+[node name="GhostChase" parent="StateMachine" index="1"]
+script = ExtResource("3_25dpc")
+
+[node name="ScatterArea" type="Area2D" parent="." index="6"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScatterArea" index="0"]
+shape = SubResource("CircleShape2D_0p0mh")
+
+[connection signal="area_entered" from="ScatterArea" to="." method="_on_scatter_area_area_entered"]

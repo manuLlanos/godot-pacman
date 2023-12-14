@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://bdxcbe2m5its2"]
+
+[ext_resource type="Script" path="res://scenes/ghosts/ghost.gd" id="1_4d6u8"]
+[ext_resource type="Texture2D" uid="uid://dgan8jh37x7gs" path="res://graphics/ghost-body.png" id="1_dhdqh"]
+[ext_resource type="Texture2D" uid="uid://bl2jvrlp18o82" path="res://graphics/ghost-eyes.png" id="2_vjyy0"]
+[ext_resource type="Script" path="res://scenes/ghosts/StateMachine.gd" id="4_fsi6g"]
+[ext_resource type="Script" path="res://scenes/States/ghostScatter.gd" id="5_eraj8"]
+[ext_resource type="Script" path="res://scenes/States/ghostChase.gd" id="6_ymeb1"]
+[ext_resource type="Script" path="res://scenes/States/GhostGoHome.gd" id="7_p512c"]
+[ext_resource type="Script" path="res://scenes/States/ghostIdle.gd" id="8_xqbud"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lfmsr"]
+radius = 14.0
+
+[node name="Ghost" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_4d6u8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lfmsr")
+
+[node name="Body" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+self_modulate = Color(1, 0, 0, 1)
+texture = ExtResource("1_dhdqh")
+
+[node name="Eyes" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -5)
+texture = ExtResource("2_vjyy0")
+vframes = 4
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+unique_name_in_owner = true
+
+[node name="NavTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.2
+autostart = true
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+unique_name_in_owner = true
+script = ExtResource("4_fsi6g")
+initial_state = NodePath("GhostChase")
+
+[node name="GhostScatter" type="Node" parent="StateMachine" node_paths=PackedStringArray("ghost", "nav_agent")]
+script = ExtResource("5_eraj8")
+ghost = NodePath("../..")
+nav_agent = NodePath("../../NavigationAgent2D")
+
+[node name="GhostChase" type="Node" parent="StateMachine" node_paths=PackedStringArray("ghost", "nav_agent")]
+script = ExtResource("6_ymeb1")
+ghost = NodePath("../..")
+nav_agent = NodePath("../../NavigationAgent2D")
+
+[node name="ghostGoHome" type="Node" parent="StateMachine" node_paths=PackedStringArray("ghost", "nav_agent")]
+script = ExtResource("7_p512c")
+ghost = NodePath("../..")
+nav_agent = NodePath("../../NavigationAgent2D")
+
+[node name="GhostIdle" type="Node" parent="StateMachine"]
+script = ExtResource("8_xqbud")
+
+[connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
+[connection signal="timeout" from="NavTimer" to="StateMachine" method="_on_nav_timer_timeout"]
